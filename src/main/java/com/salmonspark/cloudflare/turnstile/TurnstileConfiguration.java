@@ -1,9 +1,12 @@
 package com.salmonspark.cloudflare.turnstile;
 
+import com.salmonspark.cloudflare.turnstile.config.TurnstileConfigProperties;
+import com.salmonspark.cloudflare.turnstile.config.TurnstileServiceConfig;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.health.autoconfigure.contributor.ConditionalOnEnabledHealthIndicator;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -11,7 +14,8 @@ import org.springframework.context.annotation.Import;
 @Slf4j
 @Configuration
 @AutoConfiguration
-@Import({})
+@EnableConfigurationProperties(TurnstileConfigProperties.class)
+@Import({TurnstileServiceConfig.class})
 public class TurnstileConfiguration {
 
     @Configuration
