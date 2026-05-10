@@ -1,7 +1,7 @@
 package com.salmonspark.cloudflare.turnstile;
 
+import com.salmonspark.cloudflare.turnstile.config.TurnstileRestClientConfig;
 import com.salmonspark.cloudflare.turnstile.config.TurnstileConfigProperties;
-import com.salmonspark.cloudflare.turnstile.config.TurnstileServiceConfig;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @AutoConfiguration
 @EnableConfigurationProperties(TurnstileConfigProperties.class)
-@Import({TurnstileServiceConfig.class})
+@Import({TurnstileRestClientConfig.class})
 public class TurnstileConfiguration {
 
     @Configuration

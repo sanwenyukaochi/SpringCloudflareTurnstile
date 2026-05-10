@@ -1,5 +1,6 @@
 package com.salmonspark.cloudflare.turnstile.config;
 
+import com.salmonspark.cloudflare.turnstile.client.TurnstileRestClient;
 import java.net.http.HttpClient;
 import java.time.Duration;
 import lombok.RequiredArgsConstructor;
@@ -8,18 +9,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.JdkClientHttpRequestFactory;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.client.support.RestClientAdapter;
+import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
 @Slf4j
 @Configuration
 @RequiredArgsConstructor
-public class TurnstileServiceConfig {
-
-    private final TurnstileConfigProperties properties;
+public class TurnstileRestClientConfig {
 
     @Bean(name = "turnstileRestClient")
-    public RestClient turnstileRestClient() {
+    public TurnstileRestClient turnstileRestClient(TurnstileConfigProperties properties) {
         log.info("Creating Turnstile REST client with endpoint: {}", properties.getUrl());
         log.info(
                 "Turnstile REST client timeouts - connect: {}s, read: {}s",
@@ -33,11 +35,23 @@ public class TurnstileServiceConfig {
         JdkClientHttpRequestFactory requestFactory = new JdkClientHttpRequestFactory(httpClient);
         requestFactory.setReadTimeout(Duration.ofSeconds(properties.getReadTimeout()));
 
-        return RestClient.builder()
+        RestClient restClient = RestClient.builder()
                 .baseUrl(properties.getUrl())
                 .requestFactory(requestFactory)
-                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .defaultHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .requestInterceptor((request, body, execution) -> {
+                    log.debug("Turnstile API request: {} {}", request.getMethod(), request.getURI());
+                    ClientHttpResponse response = execution.execute(request, body);
+                    log.debug("Turnstile API response status: {}", response.getStatusCode());
+                    return response;
+                })
                 .build();
+
+        RestClientAdapter adapter = RestClientAdapter.create(restClient);
+        HttpServiceProxyFactory factory =
+                HttpServiceProxyFactory.builderFor(adapter).build();
+
+        return factory.createClient(TurnstileRestClient.class);
     }
 }
