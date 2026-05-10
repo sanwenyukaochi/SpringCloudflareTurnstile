@@ -1,0 +1,70 @@
+{
+    "properties": [
+        {
+            "name": "salmon-spark.cloudflare.turnstile.site-key",
+            "type": "java.lang.String",
+            "description": "Your Cloudflare Turnstile Site Key (required).",
+            "defaultValue": null
+        },
+        {
+            "name": "salmon-spark.cloudflare.turnstile.secret",
+            "type": "java.lang.String",
+            "description": "Your Cloudflare Turnstile API Secret (required).",
+            "defaultValue": null
+        },
+        {
+            "name": "salmon-spark.cloudflare.turnstile.url",
+            "type": "java.lang.String",
+            "description": "Cloudflare Turnstile API endpoint URL.",
+            "defaultValue": "https://challenges.cloudflare.com/turnstile/v0/siteverify"
+        },
+        {
+            "name": "salmon-spark.cloudflare.turnstile.connect-timeout",
+            "type": "java.lang.Integer",
+            "description": "Connection timeout in seconds for Turnstile API calls.",
+            "defaultValue": 5
+        },
+        {
+            "name": "salmon-spark.cloudflare.turnstile.read-timeout",
+            "type": "java.lang.Integer",
+            "description": "Read timeout in seconds for Turnstile API calls.",
+            "defaultValue": 10
+        },
+        {
+            "name": "salmon-spark.cloudflare.turnstile.metrics.enabled",
+            "type": "java.lang.Boolean",
+            "description": "Enable or disable Turnstile metrics collection with Micrometer.",
+            "defaultValue": true
+        },
+        {
+            "name": "salmon-spark.cloudflare.turnstile.metrics.health-check-enabled",
+            "type": "java.lang.Boolean",
+            "description": "Enable or disable Turnstile health check endpoint.",
+            "defaultValue": true
+        },
+        {
+            "name": "salmon-spark.cloudflare.turnstile.metrics.error-threshold",
+            "type": "java.lang.Integer",
+            "description": "Threshold for error rate percentage that triggers health status degradation.",
+            "defaultValue": 10
+        },
+        {
+            "name": "salmon-spark.cloudflare.turnstile.login.submissionPath",
+            "type": "java.lang.String",
+            "description": "Path to intercept for login submissions when using TurnstileCaptchaFilter.",
+            "defaultValue": "/login"
+        },
+        {
+            "name": "salmon-spark.cloudflare.turnstile.login.redirectUrl",
+            "type": "java.lang.String",
+            "description": "URL to redirect to when captcha validation fails.",
+            "defaultValue": "/login?error=captcha"
+        },
+        {
+            "name": "salmon-spark.cloudflare.turnstile.token.parameterName",
+            "type": "java.lang.String",
+            "description": "Name of the request parameter containing the Turnstile token.",
+            "defaultValue": "cloudflare-turnstile-response"
+        }
+    ]
+}
