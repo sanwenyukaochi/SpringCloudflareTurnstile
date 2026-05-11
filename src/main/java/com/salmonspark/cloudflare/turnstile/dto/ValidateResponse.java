@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @see <a href="https://developers.cloudflare.com/turnstile/get-started/server-side-validation/#response-fields">Cloudflare Turnstile</a>
  */
-public record TurnstileResponse(
+public record ValidateResponse(
         @JsonProperty("success") Boolean success,
         @JsonProperty("challenge_ts") String challengeTs,
         @JsonProperty("hostname") String hostname,
