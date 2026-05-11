@@ -25,6 +25,9 @@ dependencies {
     compileOnly("org.springframework.boot:spring-boot-starter-web:${property("springBootVersion")}")
     compileOnly("org.springframework.boot:spring-boot-starter-actuator:${property("springBootVersion")}")
 
+    // Validation annotations
+    compileOnly("jakarta.validation:jakarta.validation-api:3.1.1")
+
     // Lombok dependencies
     compileOnly("org.projectlombok:lombok:${property("lombokVersion")}")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:${property("springBootVersion")}")
@@ -37,6 +40,7 @@ dependencies {
 
     // Testing dependencies
     testImplementation("org.springframework.boot:spring-boot-starter-web:${property("springBootVersion")}")
+    testImplementation("org.springframework.boot:spring-boot-starter-validation:${property("springBootVersion")}")
     testImplementation("org.springframework.boot:spring-boot-starter-test:${property("springBootVersion")}")
     testImplementation("org.springframework.boot:spring-boot-starter-actuator:${property("springBootVersion")}")
     testImplementation("org.junit.jupiter:junit-jupiter:6.0.3")

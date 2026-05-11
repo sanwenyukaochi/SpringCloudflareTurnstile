@@ -13,10 +13,10 @@
             "defaultValue": null
         },
         {
-            "name": "salmon-spark.cloudflare.turnstile.url",
+            "name": "salmon-spark.cloudflare.turnstile.base-url",
             "type": "java.lang.String",
-            "description": "Cloudflare Turnstile API endpoint URL.",
-            "defaultValue": "https://challenges.cloudflare.com/turnstile/v0/siteverify"
+            "description": "Cloudflare Turnstile API endpoint Base URL.",
+            "defaultValue": "https://challenges.cloudflare.com"
         },
         {
             "name": "salmon-spark.cloudflare.turnstile.connect-timeout",
